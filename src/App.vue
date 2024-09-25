@@ -6,20 +6,20 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png" alt="">
       </div>
       <div>
-        <input type="text" v-model="pokemon" class="inpb">
+        <input type="text" v-model="pokemon" class="inpb" placeholder="ESCRIBE EL NOMBRE O NUMERO DEL POKEMON">
         <button @click="listarPokemones()" class="boton-busqueda">🔎</button>
       </div>
       <div></div>
     </div>
 
-    <div class="cuadres">
+    <div class="cuadres" v-if="nombre">
       <div>
-        <div class="contenedor2" :style="{ borderColor: colores(tipo[0]) }"> 
+        <div class="contenedor2"> 
           <div class="carta" v-if="nombre">
             <h1>{{ nombre }} {{ nmr }}</h1>
-            <div class="imagen">
-              <img :src="image" alt="">
-              <div class="susp">
+            <div class="imagen" >
+              <img :src="image" alt="" :style="{ backgroundColor: colores(tipo[0]) }">
+              <div class="susp" :style="{ backgroundColor: colores(tipo[0]) }">
                 <div><img :src="imagenf" alt=""></div>
                 <div><img :src="imagend" alt=""></div>
               </div>
@@ -32,9 +32,16 @@
           </div>
 
           <div class="datos-pokemon">
-            <br><h3>Tipo: {{ tipo.join(", ") }}</h3><br>
-            <h3>Debilidades: {{ devilidad.join(", ") }}</h3>
-          </div>
+  <br>
+  <h3>Tipo:<span v-for="(t, index) in tipo" :key="index" :style="{ color: colores(t) }">
+      {{ t }}<span v-if="index < tipo.length - 1">, </span>
+    </span></h3>
+  <br>
+  <h3>Debilidades:<span v-for="(d, index) in devilidad" :key="index" :style="{ color: colores(d) }">
+      {{ d }}<span v-if="index < devilidad.length - 1">, </span>
+    </span> </h3>
+</div>
+
         </div>
       </div>
 
@@ -42,10 +49,31 @@
         <div class="estadisticas-del-personaje">
           <h1>Estadísticas</h1>
           <div class="estadisticas-pokemon">
+
             <h3>Ataque: {{ Ataque }}</h3>
+
+            <div class="divbar">
+              <div class="bar" :style="{width: Ataque + 'px'}"></div>
+            </div>
+
             <h3>Defensa: {{ Defensa }}</h3>
+
+            <div class="divbar">
+              <div class="bar2" :style="{width: Defensa + 'px'}"></div>
+            </div>
+
             <h3>Velocidad: {{ Velocidad }}</h3>
+
+            <div class="divbar">
+              <div class="bar3" :style="{width: Velocidad + 'px'}"></div>
+            </div>
+
             <h3>HP: {{ HP }}</h3>
+
+            <div class="divbar">
+              <div class="bar4" :style="{width: HP + 'px'}"></div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -147,12 +175,44 @@ function colores(tipo) {
   margin: 0;
   padding: 0;
 }
+.divbar {
+    background-color: rgb(221, 211, 211);
+    height: 20px;
+    border-radius: 10px;
+
+}
+.bar {
+    width: 90%;
+    background-color: #dc2f02;
+    height: 20px;
+    border-radius:10px;
+}
+
+.bar2{
+    width: 90%;
+    background-color: rgb(81, 162, 219);
+    height: 20px;
+    border-radius:10px;
+}
+
+.bar3{
+    width: 90%;
+    background-color: rgb(114, 206, 234);
+    height: 20px;
+    border-radius:10px;
+}
+
+.bar4 {
+    width: 90%;
+    background-color: rgb(79, 200, 15);
+    height: 20px;
+    border-radius:10px;
+}
 
 body, html {
   height: 100%;
 }
 .susp{
-  background-color: #fff;
   display: grid;
   grid-template-columns:50% 50% ;
   max-height: 130px;
@@ -162,7 +222,7 @@ body, html {
 .contenedorPrincipal {
   align-items: center;
   justify-content: center;
-  background-image: url(https://i.pinimg.com/564x/6f/7b/97/6f7b97f9c499abbae13db16ae9776918.jpg);
+  background-image: url(https://images.justwatch.com/backdrop/249398652/s640/pokemon.%7Bformat%7D);
   background-size: cover;
   min-height: 100vh;
 }
@@ -179,6 +239,7 @@ body, html {
   width: 80%;
   display: flex;
   justify-content: center;
+
 }
 
 .cuadres{
@@ -190,17 +251,15 @@ body, html {
   text-align: center;
   max-width: 60%;
   margin: 20px 5%;
-  background: rgb(158,153,146);
-  background: linear-gradient(0deg, rgba(158,153,146,1) 23%, rgba(218,215,199,1) 91%);
-  border: 20px solid #fff;
+ background-color:white ;
+  border: 10px solid white;
   border-radius: 5px;
   padding: 10px;
 }
 .estadisticas-del-personaje {
   text-align: center;
   max-width: 60%;
-  background: rgb(158,153,146);
-  background: linear-gradient(0deg, rgba(158,153,146,1) 23%, rgba(218,215,199,1) 91%);
+  background-color:white ;
   border: 1px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -216,11 +275,10 @@ body, html {
 }
 
 .imagen {
-  background-color: rgb(255, 255, 255);
   border-radius: 5px;
   width: 90%;
-  margin: 0 auto;
-  border: 10px solid #000;
+  border: 5px solid #000;
+  margin-left: 5%;
 }
 
 
@@ -228,12 +286,8 @@ img {
   width: 100%;
 }
 
-img:hover {
-  width: 100%;
-}
 
 .inpb {
-  margin-top: 5%;
   width: 100%;
   height: 30px;
   border: none;
@@ -269,7 +323,6 @@ img:hover {
   text-align: center;
   max-width: 70%;
   margin: 20px 5%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -277,7 +330,7 @@ img:hover {
 .estadisticas-del-personaje {
   text-align: center;
   max-width: 70%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+ 
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -310,7 +363,7 @@ img:hover {
   text-align: center;
   max-width: 70%;
   margin: 20px 5%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+ 
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -318,7 +371,7 @@ img:hover {
 .estadisticas-del-personaje {
   text-align: center;
   max-width: 70%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -366,7 +419,7 @@ img:hover {
   text-align: center;
   max-width: 70%;
   margin: 20px 5%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+ 
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -375,7 +428,7 @@ img:hover {
   .estadisticas-del-personaje{
   text-align: center;
   max-width: 70%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+ 
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -413,7 +466,7 @@ img:hover {
   text-align: center;
   max-width: 80%;
   margin: 20px 5%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+ 
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
@@ -421,7 +474,7 @@ img:hover {
   .estadisticas-del-personaje{
   text-align: center;
   max-width: 70%;
-  background: linear-gradient(0deg, rgba(241, 148, 25, 1) 23%, rgba(228, 197, 17, 1) 82%);
+  
   border: 7px solid #fff;
   border-radius: 20px;
   padding: 10px;
