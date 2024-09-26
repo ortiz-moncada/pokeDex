@@ -24,15 +24,18 @@
                 <div><img :src="imagend" alt=""></div>
               </div>
             </div>
-            <br>
+        </div>
+      </div>
+
+     
+    </div>
+    <div>
+      <div class="Estadisticas2">
             <div class="datos">
               <h3>Peso: {{ peso }} kg</h3>
               <h3>Altura: {{ altura }} m</h3>
             </div>
-          </div>
-
-          <div class="datos-pokemon">
-  <br>
+            <br>
   <h3>Tipo:<span v-for="(t, index) in tipo" :key="index" :style="{ color: colores(t) }">
       {{ t }}<span v-if="index < tipo.length - 1">, </span>
     </span></h3>
@@ -40,12 +43,7 @@
   <h3>Debilidades:<span v-for="(d, index) in devilidad" :key="index" :style="{ color: colores(d) }">
       {{ d }}<span v-if="index < devilidad.length - 1">, </span>
     </span> </h3>
-</div>
-
-        </div>
-      </div>
-
-      <div>
+          </div>
         <div class="estadisticas-del-personaje">
           <h1>Estadísticas</h1>
           <div class="estadisticas-pokemon">
@@ -54,6 +52,11 @@
 
             <div class="divbar">
               <div class="bar" :style="{width: Ataque + 'px'}"></div>
+            </div>
+
+            <h3>Ataque Especial: {{ AtaqueEspecial }}</h3>
+            <div class="divbar">
+              <div class="bar5" :style="{width: AtaqueEspecial + 'px'}"></div>
             </div>
 
             <h3>Defensa: {{ Defensa }}</h3>
@@ -74,11 +77,12 @@
               <div class="bar4" :style="{width: HP + 'px'}"></div>
             </div>
 
+            
+
           </div>
         </div>
+            </div>
       </div>
-      <div></div>
-    </div>
   </div>
 </template>
 
@@ -100,6 +104,7 @@ let Velocidad = ref("");
 let HP = ref("");
 let imagenf = ref("");
 let imagend = ref("");
+let AtaqueEspecial = ref("");
 
 async function listarPokemones() {
   let url = `https://pokeapi.co/api/v2/pokemon/${pokemon.value.toLowerCase()}`;
@@ -116,10 +121,13 @@ async function listarPokemones() {
     imagenf.value = data.sprites.front_default;
     imagend.value = data.sprites.back_default;
 
+
     Ataque.value = data.stats[1].base_stat;
     Defensa.value = data.stats[2].base_stat;
     Velocidad.value = data.stats[5].base_stat;
     HP.value = data.stats[0].base_stat;
+    AtaqueEspecial.value = data.stats[4].base_stat;
+
 
     let debilidades = new Set();
     for (const typeinfo of data.types) {
@@ -140,6 +148,7 @@ async function listarPokemones() {
     Ataque.value = Defensa.value = Velocidad.value = HP.value = 0;
     imagenf.value = "";
     imagend.value = "";
+    AtaqueEspecial.value = 0;
   }
 }
 
@@ -176,37 +185,46 @@ function colores(tipo) {
   padding: 0;
 }
 .divbar {
-    background-color: rgb(221, 211, 211);
-    height: 20px;
-    border-radius: 10px;
+    background-color: white;
+    height: 40px;
+    border-radius: 50px;
+    width: 190%;
+    margin-left: -45%;
+    border:1px black solid;
 
 }
 .bar {
     width: 90%;
-    background-color: #dc2f02;
-    height: 20px;
-    border-radius:10px;
+    background-color: #dd5e3e;
+    height: 40px;
+    border-radius:50px;
 }
 
 .bar2{
     width: 90%;
     background-color: rgb(81, 162, 219);
-    height: 20px;
-    border-radius:10px;
+    height: 40px;
+    border-radius:50px;
 }
 
 .bar3{
     width: 90%;
     background-color: rgb(114, 206, 234);
-    height: 20px;
-    border-radius:10px;
+    height: 40px;
+    border-radius:50px;
 }
 
 .bar4 {
     width: 90%;
     background-color: rgb(79, 200, 15);
-    height: 20px;
-    border-radius:10px;
+    height: 40px;
+    border-radius:50px;
+}
+.bar5 {
+    width: 90%;
+    background-color: rgb(255, 0, 0);
+    height: 40px;
+    border-radius:50px;
 }
 
 body, html {
@@ -215,7 +233,7 @@ body, html {
 .susp{
   display: grid;
   grid-template-columns:50% 50% ;
-  max-height: 130px;
+  max-height: 245px;
 
 }
 
@@ -244,29 +262,44 @@ body, html {
 
 .cuadres{
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns:50% 50% ;
 }
 
 .contenedor2{
   text-align: center;
-  max-width: 60%;
-  margin: 20px 5%;
- background-color:white ;
-  border: 10px solid white;
+  max-width: 90%;
+  margin:  5%;
+  background: rgb(140,104,19);
+  background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid rgb(0, 0, 0);
   border-radius: 5px;
   padding: 10px;
 }
 .estadisticas-del-personaje {
   text-align: center;
   max-width: 60%;
-  background-color:white ;
-  border: 1px solid #fff;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
   border-radius: 20px;
   padding: 10px;
-  margin-left: 30%;
+  margin-left: 20%;
   margin-top: 4%;
 
 }
+
+.Estadisticas2{
+  text-align: center;
+  max-width: 60%;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
+  border-radius: 20px;
+  padding: 10px;
+  margin-left:20%;
+  margin-top: 4%;
+}
+
 
 .datos {
   display: grid;
@@ -276,9 +309,9 @@ body, html {
 
 .imagen {
   border-radius: 5px;
-  width: 90%;
+  width: 80%;
   border: 5px solid #000;
-  margin-left: 5%;
+  margin-left: 9%;
 }
 
 
@@ -291,7 +324,6 @@ img {
   width: 100%;
   height: 30px;
   border: none;
-  padding: 5px;
   border-radius: 5px;
 }
 
@@ -301,8 +333,7 @@ img {
   border: none;
   padding: 5px 20px;
   cursor: pointer;
-  margin-left: 35%;
-  margin-top: -2.2%;
+  margin-left: 2%;
   border-radius: 25px;
   background-color: #fff;
 }
@@ -319,185 +350,103 @@ img {
 
 
 @media (max-width:1024px){
-  .contenedor2{
-  text-align: center;
-  max-width: 70%;
-  margin: 20px 5%;
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-}
-.estadisticas-del-personaje {
-  text-align: center;
-  max-width: 70%;
  
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-  margin-left: 30%;
+  .divbar {
+    background-color: white;
+    height: 40px;
+    border-radius: 50px;
+    width: 120%;
+    margin-left: -5%;
 
 }
-.boton-busqueda {
-  background-color: transparent;
-  position: fixed;
-  border: none;
-  padding: 5px 20px;
-  cursor: pointer;
-  margin-left: 35%;
-  margin-top: -3.4%;
-  border-radius: 25px;
-  background-color: #fff;
-}
-
 
 }
 
 @media (max-width:768px){
-
-  .cuadres{
-  display: grid;
-  grid-template-columns: 45% 45% 10%;
+  .divbar {
+    background-color: white;
+    height: 40px;
+    border-radius: 50px;
+    width: 120%;
+    margin-left: -5%;    
 }
 
-  .contenedor2{
-  text-align: center;
-  max-width: 70%;
-  margin: 20px 5%;
- 
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-}
 .estadisticas-del-personaje {
   text-align: center;
-  max-width: 70%;
-
-  border: 7px solid #fff;
+  max-width: 80%;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
   border-radius: 20px;
   padding: 10px;
-  margin-left: 30%;
+  margin-left: 0%;
+  margin-top: 4%;
 
 }
-.boton-busqueda {
-  background-color: transparent;
-  position: fixed;
-  border: none;
-  padding: 5px 20px;
-  cursor: pointer;
-  margin-left: 35%;
-  margin-top: -5%;
-  border-radius: 25px;
-  background-color: #fff;
-}
 
-.encabezado {
-  display: grid;
-  grid-template-columns: 0fr 2fr 2fr 2fr; 
-  width: 100%;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.inpb {
-  margin-top: 5%;
-  width: 100%;
-  height: 30px;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
+.Estadisticas2{
+  text-align: center;
+  max-width: 80%;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
+  border-radius: 20px;
+  padding: 10px;
+  margin-left:0%;
+  margin-top: 4%;
 }
 
 }
 
 @media (max-width:426px) {
+
   .cuadres{
   display: grid;
-  grid-template-columns: 100%;
-
-  }
-  .contenedor2{
+  grid-template-columns:100%  ;
+}
+.estadisticas-del-personaje {
   text-align: center;
-  max-width: 70%;
-  margin: 20px 5%;
- 
-  border: 7px solid #fff;
+  max-width: 80%;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
   border-radius: 20px;
   padding: 10px;
-  margin-left: 10%;
-}
-  .estadisticas-del-personaje{
-  text-align: center;
-  max-width: 70%;
- 
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-  margin-left: 10%;
-  }
-
-  .inpb {
-  width: 90%;
-  height: 30px;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-}
-.boton-busqueda {
-  background-color: transparent;
-  position: absolute;
-  border: none;
-  padding: 5px 20px;
-  cursor: pointer;
   margin-left: 5%;
-  margin-top: 3%;
-  border-radius: 25px;
-  background-color: #fff;
+  margin-top: 4%;
+
+}
+
+.Estadisticas2{
+  text-align: center;
+  max-width: 80%;
+  background: rgb(140,104,19);
+background: linear-gradient(0deg, rgba(140,104,19,1) 33%, rgba(255,252,14,1) 71%);
+  border: 10px solid #000000;
+  border-radius: 20px;
+  padding: 10px;
+  margin-left:5%;
+  margin-top: 4%;
 }
 
 }
 
 @media (max-width:321px) {
-  .cuadres{
+
+  .divbar {
+    background-color: white;
+    height: 40px;
+    border-radius: 50px;
+    width: 100%;
+    margin-left: -5%;
+}
+
+.encabezado {
   display: grid;
-  grid-template-columns: 100%;
-
-  }
-  .contenedor2{
-  text-align: center;
-  max-width: 80%;
-  margin: 20px 5%;
- 
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-}
-  .estadisticas-del-personaje{
-  text-align: center;
-  max-width: 70%;
-  
-  border: 7px solid #fff;
-  border-radius: 20px;
-  padding: 10px;
-  margin-left: 10%;
-  }
-
-  .inpb {
-  width: 90%;
-  height: 30px;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-}
-.boton-busqueda {
-  background-color: transparent;
-  position: absolute;
-  border: none;
-  padding: 5px 20px;
-  cursor: pointer;
-  margin-left: 5%;
-  margin-top: 3%;
-  border-radius: 25px;
-  background-color: #fff;
+  grid-template-columns: 0fr 2fr 2fr 1fr; 
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 }
