@@ -8,6 +8,7 @@
       <div>
         <input type="text" v-model="pokemon" class="inpb" placeholder="ESCRIBE EL NOMBRE O NUMERO DEL POKEMON">
         <button @click="listarPokemones()" class="boton-busqueda">🔎</button>
+        <a class="BotonBatallas" href="http://localhost:5174/" target="_blank">⚔️</a>
       </div>
       <div></div>
     </div>
@@ -106,6 +107,13 @@ let imagenf = ref("");
 let imagend = ref("");
 let AtaqueEspecial = ref("");
 
+
+window.addEventListener("keydown",(e)=>{
+  if(e.key === "Enter"){
+    listarPokemones();
+  }
+})
+
 async function listarPokemones() {
   let url = `https://pokeapi.co/api/v2/pokemon/${pokemon.value.toLowerCase()}`;
   try {
@@ -177,13 +185,21 @@ function colores(tipo) {
 }
 </script>
 
-
-
 <style>
 * {
   margin: 0;
   padding: 0;
 }
+.BotonBatallas {
+  position: absolute;
+    font-size: 35px; 
+    margin-left:10%;
+    margin-top: -10px;
+    cursor: pointer;
+
+  }
+
+ 
 .divbar {
     background-color: white;
     height: 40px;
@@ -240,7 +256,7 @@ body, html {
 .contenedorPrincipal {
   align-items: center;
   justify-content: center;
-  background-image: url(https://images.justwatch.com/backdrop/249398652/s640/pokemon.%7Bformat%7D);
+  background-image: url(https://i.pinimg.com/736x/b6/40/c5/b640c58cfb5968c64b87c0334565a9fa.jpg);
   background-size: cover;
   min-height: 100vh;
 }
