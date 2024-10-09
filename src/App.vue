@@ -8,7 +8,7 @@
       <div>
         <input type="text" v-model="pokemon" class="inpb" placeholder="ESCRIBE EL NOMBRE O NUMERO DEL POKEMON">
         <button @click="listarPokemones()" class="boton-busqueda">🔎</button>
-        <a class="BotonBatallas" href="http://localhost:5174/" target="_blank">⚔️</a>
+        <a class="BotonBatallas" href="https://batallas-pokemon.onrender.com" target="_blank">⚔️</a>
       </div>
       <div></div>
     </div>
